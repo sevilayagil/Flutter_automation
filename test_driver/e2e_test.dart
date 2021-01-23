@@ -8,7 +8,7 @@ void main() {
     // test suite. Note: the Strings provided to the `byValueKey` method must
     // be the same as the Strings we used for the Keys in step 1.
     final counterTextFinder = find.byValueKey('counter');
-    final buttonFinder = find.byValueKey('increment');
+    final buttonFinder = find.byTooltip('increment');
 
     FlutterDriver driver;
 
