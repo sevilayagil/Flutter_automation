@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Automation Testing',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Automation Testing'),
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 AppBar buildAppBar() {
   return AppBar(
     elevation: 0.0,
-    backgroundColor: Color(0xFFA35D59),
+    backgroundColor: Color(0x8B008B),
     leading: BackButton(),
     actions: <Widget>[
       IconButton(
@@ -66,7 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Uyari !"),
-          content: Text("Mevcut şarkı sayisi :" + _counter.toString(),
+          key: ValueKey("uyari"),
+          content: Text("Mevcut mama sayisi :" + _counter.toString(),
               key: ValueKey("alert_text")),
           actions: <Widget>[
             new FlatButton(
@@ -84,31 +85,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Theme buildBottomNavigationBar(BuildContext context) {
+  Theme buildNavigationBar(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
           canvasColor: Color(0xFF222326),
           textTheme: Theme.of(context)
               .textTheme
-              .copyWith(caption: new TextStyle(color: Colors.redAccent))),
+              .copyWith(caption: new TextStyle(color: Colors.grey))),
       child: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               title: Text(
-                'Home',
+                'Ana Sayfa',
                 style: TextStyle(fontSize: 12.0),
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.favorite),
+              // ignore: deprecated_member_use
               title: Text(
-                'Search',
+                'Favoriler',
                 style: TextStyle(fontSize: 12.0),
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books),
+              icon: Icon(Icons.pets),
+              // ignore: deprecated_member_use
               title: Text(
-                'Your Library',
+                'Kişisel',
                 style: TextStyle(fontSize: 12.0),
               )),
         ],
@@ -121,9 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Padding buildCoverImage() {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(12.0),
       child: Image(
-        image: AssetImage('assets/images/beatles.jpeg'),
+        image: AssetImage('assets/images/cat.jpeg'),
         width: 200.0,
         height: 200.0,
       ),
@@ -133,28 +136,28 @@ class _MyHomePageState extends State<MyHomePage> {
   BoxDecoration buildGradientDecoration() {
     return BoxDecoration(
       gradient: new LinearGradient(
-          colors: [Color(0xFFA35D59), Colors.black],
+          colors: [Color(0x8B008B), Colors.black],
           begin: Alignment.topCenter,
           end: Alignment.center,
           tileMode: TileMode.clamp),
     );
   }
 
-  Padding buildFollowerCountText() {
+  Padding buildCountText() {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Text(
-        'BY SPOTIFY • 379,634 FOLLOWERS',
+        'BY SEVILAYAGIL • 500,634 HAYRAN',
         style: TextStyle(fontSize: 12.0, color: Colors.grey),
       ),
     );
   }
 
-  Padding buildAlbumTitle() {
+  Padding buildTitle() {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'This Is Beatles',
+        'Muhtar\'ın Mama Kabı',
         style: TextStyle(
           fontSize: 24.0,
           color: Colors.white,
@@ -167,19 +170,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      bottomNavigationBar: buildBottomNavigationBar(context),
+      bottomNavigationBar: buildNavigationBar(context),
       body: Container(
         decoration: buildGradientDecoration(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             buildCoverImage(),
-            buildAlbumTitle(),
-            buildFollowerCountText(),
+            buildTitle(),
+            buildCountText(),
             Text(
-              'Müzik listesinde yaptığınız degisiklik sayisi:',
+              'Mama miktarında yaptığınız degisiklik sayisi:',
               style: TextStyle(
-                fontSize: 12.0,
+                fontSize: 15.0,
                 color: Colors.white,
               ),
             ),
@@ -190,6 +193,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white,
               ),
               key: ValueKey("counterText"),
+            ),
+            TextField(
+              key: ValueKey('inputKey'),
+              style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(204, 204, 255, 50)),
+              decoration: InputDecoration(
+                hintText: 'İsminizi giriniz',
+              ),
+              textAlign: TextAlign.center,
             ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -202,16 +216,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     _showDialog();
                   },
-                  child: new Text("Ekle"),
+                  child: new Text("Mama Miktarı Göster"),
                 ),
                 new RaisedButton(
-                  key: Key("subtract"),
+                  key: ValueKey("subtract"),
                   onPressed: _decrementCounter,
                   textColor: Colors.white,
-                  color: Colors.grey,
+                  color: Colors.redAccent,
                   padding: const EdgeInsets.all(12.0),
                   child: new Text(
-                    "Çıkar",
+                    "Mama Miktarı Azalt",
                   ),
                 ),
               ],
